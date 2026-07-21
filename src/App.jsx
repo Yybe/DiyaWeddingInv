@@ -14,9 +14,13 @@ export default function App() {
   const [opened, setOpened] = useState(false);
   const siteRef = useRef(null);
 
-  // Lock background scroll while the envelope is showing
+  // Lock background scroll while the envelope is showing,
+  // and match body background to prevent flash between states
   useEffect(() => {
     document.body.style.overflow = opened ? "auto" : "hidden";
+    document.body.style.background = opened
+      ? "var(--color-ivory)"
+      : "#5C1420";
   }, [opened]);
 
   return (
@@ -28,7 +32,7 @@ export default function App() {
         aria-hidden={!opened}
         className="min-h-screen bg-[var(--color-ivory)]"
       >
-        <Hero />
+        <Hero opened={opened} />
         <InvitationMessage />
         <BrideGroom />
         <WeddingDetails />

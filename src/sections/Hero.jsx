@@ -5,10 +5,10 @@ import coupleIllustration from "../assets/images/couple-illustration.png";
 import MarigoldOverlay from "../components/MarigoldOverlay";
 import OrnamentalDivider from "../components/OrnamentalDivider";
 
-export default function Hero() {
+export default function Hero({ opened = false }) {
   return (
     <section className="relative min-h-[100svh] flex flex-col items-center justify-center px-6 pt-16 pb-12 text-center overflow-hidden">
-      <MarigoldOverlay />
+      {opened && <MarigoldOverlay />}
 
       <motion.img
         src={ganeshSymbol}
