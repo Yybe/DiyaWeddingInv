@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Marck+Script&family=Poppins:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* ---- Color tokens ---- */
+  --color-ivory: #FBF6EC;
+  --color-cream: #F4E9D4;
+  --color-cream-deep: #EADFC4;
+  --color-maroon: #7A1F2B;
+  --color-maroon-deep: #5C1420;
+  --color-gold: #C9A24B;
+  --color-gold-soft: #DEC17E;
+  --color-gold-deep: #8C6A2F;
+  --color-ink: #3B2A1F;
+
+  /* ---- Fonts ---- */
+  --font-display: "Cormorant Garamond", serif;
+  --font-script: "Marck Script", cursive;
+  --font-utility: "Poppins", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* Subtle paper grain texture, layered via CSS so no extra image asset is needed */
+.paper-grain {
+  position: relative;
+}
+.paper-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ivory);
+}
+
+.tap-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-maroon);
+  outline-offset: 3px;
+}
