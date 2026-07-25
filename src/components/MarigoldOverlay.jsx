@@ -3,6 +3,8 @@ import marigoldVideo from "../assets/videos/marigold-petals.mp4";
 
 /**
  * Marigold petal video overlay, positioned absolutely behind hero content.
+ * Always mounted on page load (not conditionally rendered) so the video
+ * starts buffering immediately while the envelope covers the viewport.
  */
 export default function MarigoldOverlay({ className = "" }) {
   const videoRef = useRef(null);
@@ -11,16 +13,21 @@ export default function MarigoldOverlay({ className = "" }) {
     const video = videoRef.current;
     if (!video) return;
 
+    // Start playback as soon as possible — the browser will have already
+    // begun preloading because the <video> element was mounted at page
+    // load (not gated behind the envelope opening).
     const playVideo = () => {
-      if (video.paused) {
-        video.play().catch(() => {});
-      }
+      video.play().catch(() => {});
     };
 
-    video.addEventListener("loadedmetadata", playVideo);
-    if (video.readyState >= 2) playVideo();
+    // If data is already buffered, play immediately
+    if (video.readyState >= 2) {
+      playVideo();
+    } else {
+      video.addEventListener("canplay", playVideo, { once: true });
+    }
 
-    return () => video.removeEventListener("loadedmetadata", playVideo);
+    return () => video.removeEventListener("canplay", playVideo);
   }, []);
 
   return (
@@ -38,7 +45,8 @@ export default function MarigoldOverlay({ className = "" }) {
         preload="auto"
         className="w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-ivory)]/30 to-transparent" />
+      {/* Longer gradient that blends hero video into the cream section below */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-ivory)]/40 via-transparent via-60% to-[var(--color-cream)]" />
     </div>
   );
 }

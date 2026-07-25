@@ -6,7 +6,7 @@ import { formatPhoneDisplay, toTelHref } from "../utils/formatPhone";
 
 export default function Contact() {
   return (
-    <section className="relative px-6 py-16 sm:py-20 bg-[var(--color-cream)]">
+    <section className="relative px-6 py-16 sm:py-20 bg-gradient-to-b from-[var(--color-cream)] from-55% to-[var(--color-maroon-deep)]">
       <SectionHeading eyebrow={invitation.rsvp.title} title="Contact Us" />
 
       <div className="max-w-md mx-auto flex flex-col gap-3">

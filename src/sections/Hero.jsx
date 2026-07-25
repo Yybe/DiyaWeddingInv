@@ -5,10 +5,13 @@ import coupleIllustration from "../assets/images/couple-illustration.png";
 import MarigoldOverlay from "../components/MarigoldOverlay";
 import OrnamentalDivider from "../components/OrnamentalDivider";
 
-export default function Hero({ opened = false }) {
+export default function Hero() {
   return (
     <section className="relative min-h-[100svh] flex flex-col items-center justify-center px-6 pt-16 pb-12 text-center overflow-hidden">
-      {opened && <MarigoldOverlay />}
+      {/* Always mounted — starts buffering while envelope covers the viewport */}
+      <MarigoldOverlay />
+      {/* Soft bottom gradient that blends hero into the next cream section */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-b from-transparent to-[var(--color-cream)] pointer-events-none z-[1]" />
 
       <motion.img
         src={ganeshSymbol}

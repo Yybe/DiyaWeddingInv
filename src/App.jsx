@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { motion } from "framer-motion";
 import WeddingEnvelope from "./components/WeddingEnvelope";
 import Hero from "./sections/Hero";
 import InvitationMessage from "./sections/InvitationMessage";
@@ -9,39 +10,75 @@ import HaldiMehendi from "./sections/HaldiMehendi";
 import Venue from "./sections/Venue";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
+import SectionBlend from "./components/SectionBlend";
+import FloatingPetals from "./components/FloatingPetals";
 
 export default function App() {
-  const [opened, setOpened] = useState(false);
-  const siteRef = useRef(null);
+  const [stage, setStage] = useState("envelope"); // "envelope" | "revealed"
+
+  /** Called when the envelope starts fading out (~1150ms after seal tap) */
+  const handleFading = useCallback(() => {
+    setStage("revealed");
+  }, []);
 
   // Lock background scroll while the envelope is showing,
   // and match body background to prevent flash between states
   useEffect(() => {
-    document.body.style.overflow = opened ? "auto" : "hidden";
-    document.body.style.background = opened
+    const revealed = stage === "revealed";
+    document.body.style.overflow = revealed ? "auto" : "hidden";
+    document.body.style.background = revealed
       ? "var(--color-ivory)"
       : "#5C1420";
-  }, [opened]);
+  }, [stage]);
 
   return (
     <>
-      <main
-        ref={siteRef}
-        aria-hidden={!opened}
-        className="min-h-screen bg-[var(--color-ivory)]"
+      {/* Main is ALWAYS rendered — never conditionally mounted.
+          It starts invisible (opacity 0) behind the envelope.
+          When the envelope begins to fade, we animate it in. */}
+      <motion.main
+        aria-hidden={stage !== "revealed"}
+        className="min-h-screen relative"
+        initial={{ opacity: 0, scale: 1.02, filter: "blur(6px)" }}
+        animate={
+          stage === "revealed"
+            ? { opacity: 1, scale: 1, filter: "blur(0px)" }
+            : { opacity: 0, scale: 1.02, filter: "blur(6px)" }
+        }
+        transition={{
+          duration: 1.3,
+          ease: [0.22, 0.61, 0.36, 1],
+        }}
       >
-        <Hero opened={opened} />
-        <InvitationMessage />
-        <BrideGroom />
-        <WeddingDetails />
-        <DateReveal />
-        <HaldiMehendi />
-        <Venue />
-        <Contact />
-        <Footer />
-      </main>
+        {/* Floating petals drift across the entire page */}
+        <FloatingPetals density={6} />
 
-      <WeddingEnvelope bride="D" groom="A" onOpen={() => setOpened(true)} />
+        <Hero />
+
+        <SectionBlend direction="up" fillColor="var(--color-cream)" />
+        <InvitationMessage />
+        <SectionBlend direction="down" fillColor="var(--color-ivory)" />
+        <BrideGroom />
+        <SectionBlend direction="up" fillColor="var(--color-cream)" />
+        <WeddingDetails />
+        <SectionBlend direction="down" fillColor="var(--color-ivory)" />
+        <DateReveal />
+        <SectionBlend direction="up" fillColor="var(--color-cream)" />
+        <HaldiMehendi />
+        <SectionBlend direction="down" fillColor="var(--color-ivory)" />
+        <Venue />
+        <SectionBlend direction="up" fillColor="var(--color-cream)" />
+        <Contact />
+        {/* Footer gets its own blend — cream-to-maroon-deep transition */}
+        <SectionBlend direction="down" fillColor="var(--color-maroon-deep)" />
+        <Footer />
+      </motion.main>
+
+      <WeddingEnvelope
+        bride="D"
+        groom="A"
+        onFading={handleFading}
+      />
     </>
   );
 }

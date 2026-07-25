@@ -45,6 +45,7 @@ export default function WeddingEnvelope({
   groom = "A",
   hint = "Tap the seal to open",
   onOpen,
+  onFading,
 }) {
   // closed -> opening -> fading -> done
   const [stage, setStage] = useState("closed");
@@ -67,7 +68,10 @@ export default function WeddingEnvelope({
     setStage("opening");
 
     timers.current.push(
-      setTimeout(() => setStage("fading"), fast ? 60 : 1150)
+      setTimeout(() => {
+        setStage("fading");
+        onFading && onFading();
+      }, fast ? 60 : 1150)
     );
     timers.current.push(
       setTimeout(() => {

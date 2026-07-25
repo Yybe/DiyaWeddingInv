@@ -45,7 +45,7 @@ function VenueCard({ label, name, address, date, time, mapsQuery, delay }) {
 export default function Venue() {
   const { weddingEvent, preWeddingEvents } = invitation;
   return (
-    <section className="relative px-6 py-16 sm:py-20 bg-[var(--color-ivory)]">
+    <section className="relative px-6 py-16 sm:py-20 bg-gradient-to-b from-[var(--color-ivory)] from-55% to-[var(--color-cream)]">
       <SectionHeading eyebrow="Where to Find Us" title="Venues" />
 
       <div className="max-w-md mx-auto flex flex-col gap-6">

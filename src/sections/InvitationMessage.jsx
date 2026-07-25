@@ -5,7 +5,7 @@ import CornerMotif from "../components/CornerMotif";
 
 export default function InvitationMessage() {
   return (
-    <section className="relative px-6 py-16 sm:py-20 bg-[var(--color-cream)]">
+    <section className="relative px-6 py-16 sm:py-20 bg-gradient-to-b from-[var(--color-cream)] from-55% to-[var(--color-ivory)]">
       <CornerMotif position="top-left" />
       <CornerMotif position="bottom-right" />
 

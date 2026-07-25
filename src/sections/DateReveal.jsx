@@ -72,7 +72,7 @@ export default function DateReveal() {
   const allRevealed = revealedCount >= 3;
 
   return (
-    <section className="relative px-6 py-16 sm:py-20 bg-[var(--color-ivory)] overflow-hidden">
+    <section className="relative px-6 py-16 sm:py-20 bg-gradient-to-b from-[var(--color-ivory)] from-55% to-[var(--color-cream)] overflow-hidden">
       <SectionHeading eyebrow="A Date to Remember" title="Reveal the Date" />
 
       <p className="text-center font-utility text-sm text-[var(--color-ink)]/80 max-w-xs mx-auto mb-8">

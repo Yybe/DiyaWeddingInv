@@ -5,7 +5,7 @@ import OrnamentalDivider from "../components/OrnamentalDivider";
 
 export default function BrideGroom() {
   return (
-    <section className="relative px-6 py-16 sm:py-20 bg-[var(--color-ivory)]">
+    <section className="relative px-6 py-16 sm:py-20 bg-gradient-to-b from-[var(--color-ivory)] from-55% to-[var(--color-cream)]">
       <SectionHeading eyebrow="The Wedding" title="Bride & Groom" />
 
       <motion.div

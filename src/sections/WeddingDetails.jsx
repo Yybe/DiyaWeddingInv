@@ -23,7 +23,7 @@ const items = [
 
 export default function WeddingDetails() {
   return (
-    <section className="relative px-6 py-16 sm:py-20 bg-[var(--color-cream)]">
+    <section className="relative px-6 py-16 sm:py-20 bg-gradient-to-b from-[var(--color-cream)] from-55% to-[var(--color-ivory)]">
       <SectionHeading eyebrow="Save the Date" title="Wedding Details" />
 
       <div className="max-w-md mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
