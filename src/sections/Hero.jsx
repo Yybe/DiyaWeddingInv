@@ -14,6 +14,7 @@ export default function Hero({ opened = false }) {
         src={ganeshSymbol}
         alt="Om Shri Ganeshaya Namah"
         className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 mb-4"
+        style={{ mixBlendMode: "multiply" }}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}

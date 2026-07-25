@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import Envelope from "./components/Envelope";
+import WeddingEnvelope from "./components/WeddingEnvelope";
 import Hero from "./sections/Hero";
 import InvitationMessage from "./sections/InvitationMessage";
 import BrideGroom from "./sections/BrideGroom";
@@ -25,8 +25,6 @@ export default function App() {
 
   return (
     <>
-      {!opened && <Envelope onOpened={() => setOpened(true)} />}
-
       <main
         ref={siteRef}
         aria-hidden={!opened}
@@ -42,6 +40,8 @@ export default function App() {
         <Contact />
         <Footer />
       </main>
+
+      <WeddingEnvelope bride="D" groom="A" onOpen={() => setOpened(true)} />
     </>
   );
 }

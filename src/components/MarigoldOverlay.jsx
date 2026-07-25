@@ -2,26 +2,29 @@ import ChromaKeyVideo from "./ChromaKeyVideo";
 import marigoldVideo from "../assets/videos/marigold-petals.mp4";
 
 /**
- * Subtle looping petal overlay, positioned absolutely behind hero content.
- * Uses canvas-based chroma key to remove the greenscreen/grey background
- * from the video so only the petals are visible over the ivory wash.
+ * Marigold petal video overlay rendered via canvas-based chroma key.
+ * Keys out black so petals appear to float naturally over the hero background.
  */
 export default function MarigoldOverlay({ className = "" }) {
   return (
-    <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`} aria-hidden="true">
+    <div
+      className={`absolute inset-0 overflow-hidden pointer-events-none z-0 ${className}`}
+      aria-hidden="true"
+    >
       <ChromaKeyVideo
         src={marigoldVideo}
-        keyColor={[0, 255, 0]}
-        tolerance={0.35}
+        keyColor={[0, 0, 0]}
+        tolerance={0.3}
+        className="w-full h-full"
+        style={{ position: "absolute", inset: 0 }}
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
-        className="w-full h-full mix-blend-screen opacity-50"
+        preload="auto"
       />
-      {/* Ivory wash so text stays legible over the petals */}
-      <div className="absolute inset-0 bg-[var(--color-ivory)]/55" />
+      {/* Subtle overlay for better text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-ivory)]/30 to-transparent" />
     </div>
   );
 }
